@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block content %}
+    <div class="profile">
+        <h2>{{ user.username }}</h2>
+        <p>Ваша ссылка: <strong>{{ user.profile_link }}</strong></p>
+        <p>Поделитесь этой ссылкой, чтобы другие могли вас найти:</p>
+        <input type="text" value="{{ url_for('profile', link=user.profile_link, _external=True) }}" readonly>
+        
+        {% if not is_owner %}
+            <form action="{{ url_for('add_contact', link=user.profile_link) }}" method="post">
+                <button type="submit">Добавить в контакты</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
