@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Мои контакты{% endblock %}
+
+{% block content %}
+    <h2>Мои контакты</h2>
+    
+    {% if contacts %}
+        <ul class="contacts-list">
+            {% for contact in contacts %}
+                <li>
+                    <a href="{{ url_for('profile', link=contact.profile_link) }}">{{ contact.username }}</a>
+                    <a href="{{ url_for('chat', link=contact.profile_link) }}">Чат</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>У вас пока нет контактов.</p>
+    {% endif %}
+{% endblock %}
