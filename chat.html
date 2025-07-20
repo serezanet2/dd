@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Чат с {{ contact.username }}{% endblock %}
+
+{% block content %}
+    <h2>Чат с {{ contact.username }}</h2>
+    
+    <div class="chat-messages">
+        {% for message in messages %}
+            <div class="message {% if message.sender_id == session['user_id'] %}sent{% else %}received{% endif %}">
+                <p>{{ message.content }}</p>
+                <small>{{ message.timestamp }}</small>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <form action="{{ url_for('send_message', link=contact.profile_link) }}" method="post">
+        <input type="text" name="content" placeholder="Введите сообщение..." required>
+        <button type="submit">Отправить</button>
+    </form>
+{% endblock %}
